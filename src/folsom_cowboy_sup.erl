@@ -42,4 +42,10 @@ start_link() ->
 %% @spec init([]) -> SupervisorTree
 %% @doc supervisor callback.
 init([]) ->
-    {ok, { {one_for_one, 10, 10}, []} }.
+    {ok, { {one_for_one, 10, 10},
+           [
+            {folsom_cowboy_state_keeper,
+             {folsom_cowboy_state_keeper, start_link, []},
+             permanent, 5000, worker, [folsom_cowboy_state_keeper]}
+
+           ]} }.
